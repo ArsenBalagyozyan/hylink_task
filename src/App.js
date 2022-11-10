@@ -12,7 +12,7 @@ function App() {
   const [expandUserData, setExpandUserData] = useState({});
 
   const octokit = new Octokit({
-    auth: "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"
+    auth: "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"
   });
 
   const addKeyToData = (data) => {
