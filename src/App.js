@@ -1,6 +1,6 @@
 import './App.css';
-import {Table, Input, Spin, Button, Col, Row  } from "antd";
 import 'antd/dist/antd.css';
+import {Table, Input, Spin, Button, Col, Row  } from "antd";
 import {useEffect, useState} from "react";
 import { Octokit } from "octokit"
 
@@ -31,6 +31,7 @@ function App() {
     (async () => {
 
       const response = await octokit.request("GET /users", {});
+
       const mappedData = addKeyToData(response.data);
 
       setUserData(mappedData)
@@ -98,6 +99,7 @@ function App() {
 
       let response = [];
 
+      // if search input is empty need to get initial users data
       if (!search) {
 
         const users = await octokit.request("GET /users", {});
@@ -123,6 +125,7 @@ function App() {
           <Col span={3}>
             <Search
                 placeholder="input search text"
+                data-testid="user-search"
                 onChange={(e) => {
 
                   setSearch(e.target.value);
@@ -178,7 +181,7 @@ function App() {
                   childrenColumnName: ["option"],
                   defaultExpandedRowKeys: ["option"],
                   expandIcon: ({ expanded, onExpand, record }) => {
-                    return (<Button onClick={e => onExpand(record, e)}>Show {expanded ? "Less" : "More" }</Button>)
+                    return (<Button onClick={e => onExpand(record, e)} data-testid="show-more">Show {expanded ? "Less" : "More" }</Button>)
                   }
                 }}
             />
